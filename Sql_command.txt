@@ -1,0 +1,90 @@
+code for importing data from csv to sqlite3 file
+PS C:\Users\Kajal> sqlite3 KunT.db
+SQLite version 3.38.2 2022-03-26 13:51:10
+Enter ".help" for usage hints.
+sqlite> .mode csv 
+sqlite> .import "C:/Users/Kajal/Desktop/Python Modules/favorites.csv" Tan
+
+
+
+
+
+we are reading csv file and updating it in sqlite3
+For that use following command:-
+
+sqlite3 KunT.db
+.mode csv
+.import C:\Users\******\favorites.csv KunT
+
+#comment:- The mode is use to change the file type
+for importing provide the whole file path and at last give the table-name
+#
+
+
+2) How to display the content of table:-
+sqlite>.schema 
+note you should be in the same path
+
+3) How to dispaly the content of any column:-
+sqlite> SELECT title FROM kunT;
+#shows all the content of column title
+
+
+#If you wanted to show content of whole table 
+sqlite3>SELECT * FROM KunT;
+# * means select all and show
+
+
+
+
+4) How to delete particular data from our db
+sqlite> select title from KunT where title like "%friends%"; 
+sqlite>delete from KunT where title like "%friends%";
+
+
+#here where is used to compare and like is same as ==
+
+5) How to update any data using sqlite3
+sqlite3> select title from KunT where title ="Thevoffice";
+#This show the Thevoffice if there in database
+
+sqlite3> UPDATE KunT SET title = "The Office" WHERE title ="Thevoffice";
+#this update or edit the Thevoffice to The Office
+
+sqlite3>select title from KunT where title ="Thevoffice";
+#This show the presence of Thevoffice
+
+
+
+6) We wanted to get shows name who's genres include Comedy
+#If we use SELECT title FROM Tan WHERE genres="Comedy";
+this will give show who's genres is Comdey but not give the show name if it's "Comedy, Drama"
+# so for that we are using LIKE which is same as in Python
+#So as long comedy is there in our genres it will give as o/p
+
+7) Now we used favorites8.py file to create 2 tables name shows and genres:
+They stores the vlaue with maintaining the sr.no 
+
+
+sqlite>(SELECT show_id FROM genres WHERE genre ="Comedy")
+#This gives the show_id for data in genres table whos genre is Comdey
+
+sqlite>(SELECT * FROM genres WHERE genre ="Comedy")
+#This gives whole table i.e. sr.no with the value for genre of genres table
+
+--->>> Clubing 2 or 3 sql qureies in single
+sqlite> SELECT title FROM shows WHERE (SELECT show_id FROM genres WHERE genre ="Comedy"); 
+#This gives the title from table shows whose show_id is of genres is equal to genre!
+
+
+sqlite> SELECT DISTINCT(title) FROM shows WHERE (SELECT show_id FROM genres WHERE genre ="Comedy"); 
+#This gives single value or avoiding reptation happening in title
+
+sqlite> SELECT DISTINCT(title) FROM shows WHERE (SELECT show_id FROM genres WHERE genre ="Comedy") ORDER BY title; 
+#This gives the order form of data i.e. arrange in sequence
+
+
+
+#Inserting data in db using sqlite
+sqlite> INSERT INTO genres (show_id,genre) VALUES (158,"Seinfeld"); 
+sqlite>  SELECT DISTINCT(title) FROM shows WHERE (SELECT show_id FROM genres WHERE genre ="Comedy") ORDER BY title; 
